@@ -3,6 +3,7 @@ from common.douyu_request import dyreq
 from common.logger import logger
 from lxml import etree
 import re
+import math
 
 
 def get_badge():
@@ -47,6 +48,7 @@ def get_need_exp():
     """
     for i in range(len(get_badge()[1])):
         logger.info("房间号%s升级还需%s点经验" % (get_room_list()[i], get_badge()[1][i]))
+
 
 
 if __name__ == '__main__':

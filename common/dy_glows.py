@@ -8,8 +8,10 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
+
 from common.douyu_request import dyreq
 from common.logger import logger
+from common.send_message import mail_send, bank_send
 
 Bags = 0
 Own = 0
@@ -47,9 +49,13 @@ def get_glow():
             logger.info("------背包检查结束------")
     except AssertionError:
         if glow_res.json()['msg'] == '请登录':
-            logger.error("请更新COOKIE")
+            error = '请更新COOKIE'
+            logger.error(error)
         else:
-            logger.error("领取荧光棒时发生错误")
+            error = '领取荧光棒时发生错误'
+            logger.error(error)
+        bank_send(False, error)
+        mail_send(error)
         logger.info("------背包检查结束------")
     return glow_res
 
@@ -79,9 +85,11 @@ def glow_donate(num=1, room_id=12306):
             now_left = int(Own) - int(num)
             Own = now_left
             logger.info("向房间号%s赠送荧光棒%s个成功,当前剩余%s个" % (room_id, num, now_left))
+            bank_send(True, "向房间号%s赠送荧光棒%s个成功,当前剩余%s个" % (room_id, num, now_left))
         except AssertionError:
             if donate_res.json()['msg'] == "用户没有足够的道具":
                 logger.warning("向房间号%s赠送荧光棒失败,当前背包中荧光棒数量为:%s,而设定捐赠数量为%s" % (room_id, Own, num))
+                bank_send(False, "向房间号%s赠送荧光棒失败,当前背包中荧光棒数量为:%s,而设定捐赠数量为%s" % (room_id, Own, num))
             else:
                 logger.warning(donate_res.json()['msg'])
 

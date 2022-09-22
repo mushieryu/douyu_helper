@@ -1,6 +1,7 @@
 # encoding:utf-8
 from common.douyu_request import dyreq
 from common.logger import logger
+from common.send_message import mail_send, bank_send
 
 Is_login = 0
 login_url = "/wgapi/livenc/liveweb/follow/list"
@@ -17,6 +18,8 @@ def is_login():
         logger.info("Cookie有效,登陆成功")
     else:
         logger.warning("登陆失败,请检查Cookie有效性")
+        bank_send(False, '登陆失败,请检查Cookie有效性')
+        mail_send('登陆失败,请检查Cookie有效性')
     return Is_login
 
 
