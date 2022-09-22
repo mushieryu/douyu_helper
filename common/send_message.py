@@ -39,7 +39,7 @@ def send_message(send_key):
         requests.post(url, data=data)
 
 def mail_send(error):
-    mode = int(conf.get_conf("SendMode")['mailSend'])
+    mode = int(conf.get_conf("SendMode")['mailsend'])
     if mode == 1:
         username = get_secrets('MAILSEND')
         password = get_secrets('PASSWORD')
@@ -66,7 +66,7 @@ def mail_send(error):
         connection.quit()
 
 def bank_send(success, message):
-    mode = int(conf.get_conf("SendMode")['bankSend'])
+    mode = int(conf.get_conf("SendMode")['banksend'])
     if mode == 1:
         title = success and '/GitHub Action Success' or 'GitHub Action Failure'
         barkurl = get_secrets('BARKURL')
