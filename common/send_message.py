@@ -68,7 +68,7 @@ def mail_send(error):
 def bank_send(success, message):
     mode = int(conf.get_conf("SendMode")['banksend'])
     if mode == 1:
-        title = success and '/GitHub Action Success' or 'GitHub Action Failure'
+        title = success and 'GitHub Action Success' or 'GitHub Action Failure'
         barkurl = get_secrets('BARKURL')
         if barkurl.startswith('https'):
             requests.get(barkurl + '/' + title + '/' + message)
