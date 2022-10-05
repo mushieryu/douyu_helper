@@ -51,7 +51,7 @@ def get_need_exp(print_sentence):
         if "成功" in print_sentence[get_room_list()[i]]:
             bank_send(True, print_sentence[get_room_list()[i]] + "，升级还需%s点经验" % (get_badge()[1][i]))
         else:
-
+            bank_send(False, print_sentence[get_room_list()[i]])
 
 
 
