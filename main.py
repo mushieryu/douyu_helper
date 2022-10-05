@@ -36,13 +36,14 @@ def run():
                 every_give = math.ceil(glow_nums / len(room_list))
                 left = int(glow_nums) - int(every_give) * (len(room_list) - 1)
                 logger.info("------开始捐赠荧光棒------")
+                print_sentence = {}
                 for room in room_list:
                     if room == room_list[-1]:
-                        glow_donate(left, room)
+                        print_sentence[room] = glow_donate(left, room)
                     else:
-                        glow_donate(every_give, room)
+                        print_sentence[room] = glow_donate(every_give, room)
                 logger.info("------荧光棒捐赠结束------")
-                get_need_exp()
+                get_need_exp(print_sentence)
             else:
                 logger.warning("配置错误,没有这种选项,请修改配置并重新执行")
                 bank_send(False, "配置错误,没有这种选项,请修改配置并重新执行")
