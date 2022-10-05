@@ -4,6 +4,7 @@ from common.login_check import *
 from common.config import conf
 from common.dy_badge import *
 from common.logger import logger
+from common.dy_glows import glow_donate
 import math
 from common.get_secrets import get_secrets
 from common.send_message import send_message, bank_send, mail_send
@@ -24,10 +25,11 @@ def run():
                 nums = conf.get_conf_list('selfMode', 'giftCount')
                 room_list = conf.get_conf_list('selfMode', 'roomId')
                 logger.info("------开始捐赠荧光棒------")
+                print_sentence = {}
                 for i in range(len(nums)):
-                    glow_donate(nums[i], room_list[i])
+                    print_sentence[room_list[i]] = glow_donate(nums[i], room_list[i])
                 logger.info("------荧光棒捐赠结束------")
-                get_need_exp()
+                get_need_exp(print_sentence)
             elif mode == 0:
                 logger.info("当前选择模式为:平均分配模式")
                 room_list = get_room_list()

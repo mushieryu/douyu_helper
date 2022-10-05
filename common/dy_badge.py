@@ -1,6 +1,7 @@
 # encoding:utf-8
 from common.douyu_request import dyreq
 from common.logger import logger
+from common.send_message import bank_send
 from lxml import etree
 import re
 import math
@@ -31,7 +32,6 @@ def get_badge():
         badge_dict[room_id] = anchor
     return badge_dict, exp_list
 
-
 def get_room_list():
     """
     :return:通过数组方式返回房间号
@@ -42,12 +42,14 @@ def get_room_list():
     return room_list
 
 
-def get_need_exp():
+def get_need_exp(print_sentence):
     """
     :return:通过数组方式返回升级所需经验
     """
     for i in range(len(get_badge()[1])):
         logger.info("房间号%s升级还需%s点经验" % (get_room_list()[i], get_badge()[1][i]))
+        if "成功" in print_sentence[get_room_list()[i]]:
+            bank_send(True, print_sentence[get_room_list()[i]] + "，升级还需%s点经验" % (get_badge()[1][i]))
 
 
 

@@ -85,13 +85,14 @@ def glow_donate(num=1, room_id=12306):
             now_left = int(Own) - int(num)
             Own = now_left
             logger.info("向房间号%s赠送荧光棒%s个成功,当前剩余%s个" % (room_id, num, now_left))
-            bank_send(True, "向房间号%s赠送荧光棒%s个成功,当前剩余%s个" % (room_id, num, now_left))
+            return "向房间号%s赠送荧光棒%s个成功" % (room_id, num)
         except AssertionError:
             if donate_res.json()['msg'] == "用户没有足够的道具":
                 logger.warning("向房间号%s赠送荧光棒失败,当前背包中荧光棒数量为:%s,而设定捐赠数量为%s" % (room_id, Own, num))
-                bank_send(False, "向房间号%s赠送荧光棒失败,当前背包中荧光棒数量为:%s,而设定捐赠数量为%s" % (room_id, Own, num))
+                return "向房间号%s赠送荧光棒失败,当前背包中荧光棒数量为:%s,而设定捐赠数量为%s" % (room_id, Own, num)
             else:
                 logger.warning(donate_res.json()['msg'])
+                return str()
 
 
 def go_room():
