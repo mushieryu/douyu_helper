@@ -92,7 +92,7 @@ def glow_donate(num=1, room_id=12306):
                 return "向房间号%s赠送荧光棒失败,当前背包中荧光棒数量为:%s,而设定捐赠数量为%s" % (room_id, Own, num)
             else:
                 logger.warning(donate_res.json()['msg'])
-                return str()
+                return str(donate_res.json()['msg'])
 
 
 def go_room():
