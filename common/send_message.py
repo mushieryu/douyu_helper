@@ -71,7 +71,7 @@ def bank_send(success, message):
         title = success and 'GitHub Action Success' or 'GitHub Action Failure'
         barkurl = get_secrets('BARKURL')
         if barkurl.startswith('https'):
-            requests.get(barkurl + '/' + title + '/' + message)
+            requests.get(barkurl + '/' + title + '/' + message + '?group=Douyu Donate')
 
 if __name__ == '__main__':
     send_message()
